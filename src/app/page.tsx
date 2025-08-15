@@ -1,9 +1,22 @@
-import Image from "next/image";
+import getProducts from "@/lib/api";
+import type {Product} from "@/types";
 
-export default function Home() {
+export default async function Home() {
+  const products:Product[] = await getProducts();
   return (
-      <h1 className="text-3xl font-bold underline bg-amber-700">
-      Hello world!
-    </h1>
+      <div>
+        <h1>Product List</h1>
+        <ul>
+          {products.map((p)=>(
+            <li key={p.id} className="p-6">
+              <h2 className="text-blue-400">{p.name}</h2>
+              <p>{p.description}</p>
+              <h3>{p.price.toFixed(2)}</h3>
+              <hr></hr>
+            </li>
+          ))}
+        
+        </ul>
+      </div>
   );
 }
