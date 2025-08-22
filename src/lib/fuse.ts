@@ -1,8 +1,10 @@
 import Fuse from "fuse.js";
-import { products } from "@/data/products";
+import type { Product } from "@/types";
 
-const fuse = new Fuse(products, {
-  keys: ["name", "description"],
-});
-
-export default fuse;
+export function createProductFuse(products: Product[]) {
+  return new Fuse(products, {
+    includeScore: true,
+    threshold: 0.35,
+    keys: ["name", "description"],
+  });
+}
