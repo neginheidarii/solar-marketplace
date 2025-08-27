@@ -18,6 +18,7 @@ export const products: Product[] = [
     price: 249.99,
     imageUrl: "/1.png",
     category: "Panels",
+    inStock: true,
   },
   {
     id: "p2",
@@ -27,6 +28,7 @@ export const products: Product[] = [
     price: 139.0,
     imageUrl: "/2.png",
     category: "Charge Controllers",
+    inStock: false,
   },
   {
     id: "p3",
@@ -36,6 +38,7 @@ export const products: Product[] = [
     price: 2899.99,
     imageUrl: "/3.png",
     category: "Batteries",
+    inStock: true,
   },
   {
     id: "p4",
@@ -45,6 +48,7 @@ export const products: Product[] = [
     price: 499.0,
     imageUrl: "/4.png",
     category: "Inverters",
+    inStock: false,
   },
   {
     id: "p5",
@@ -54,6 +58,7 @@ export const products: Product[] = [
     price: 89.99,
     imageUrl: "/5.png",
     category: "Mounting",
+    inStock: true,
   },
   {
     id: "p6",
@@ -63,6 +68,7 @@ export const products: Product[] = [
     price: 199.99,
     imageUrl: "/6.png",
     category: "Panels",
+    inStock: false,
   },
   {
     id: "p7",
@@ -72,6 +78,7 @@ export const products: Product[] = [
     price: 59.99,
     imageUrl: "/7.png",
     category: "Monitoring",
+    inStock: true,
   },
   {
     id: "p8",
@@ -81,6 +88,7 @@ export const products: Product[] = [
     price: 249.0,
     imageUrl: "/8.png",
     category: "Batteries",
+    inStock: true,
   },
   {
     id: "p14",
@@ -89,6 +97,7 @@ export const products: Product[] = [
     price: 3499.0,
     imageUrl: "/6.png",
     category: "Appliances", // grouped kits under Appliances
+    inStock: false,
   },
   {
     id: "p15",
@@ -97,6 +106,7 @@ export const products: Product[] = [
     price: 1899.99,
     imageUrl: "/7.png",
     category: "Inverters",
+    inStock: true,
   },
   {
     id: "p28",
@@ -105,6 +115,7 @@ export const products: Product[] = [
     price: 1249.0,
     imageUrl: "/4.png",
     category: "Appliances",
+    inStock: true,
   },
   {
     id: "p29",
@@ -113,6 +124,7 @@ export const products: Product[] = [
     price: 219.0,
     imageUrl: "/5.png",
     category: "Appliances",
+    inStock: false,
   },
   {
     id: "p30",
@@ -122,5 +134,6 @@ export const products: Product[] = [
     price: 2599.99,
     imageUrl: "/6.png",
     category: "Inverters",
+    inStock: true,
   },
 ];
