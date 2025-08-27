@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createProductFuse } from "@/lib/fuse";
 import { Product, Sort, CategoryOptions } from "@/types";
 import Link from "next/link";
@@ -10,12 +10,17 @@ const ProductSearch = ({ products }: { products: Product[] }) => {
   const [query, setQuery] = useState<string>("");
   const [sort, setSort] = useState<Sort>("None");
   const [category, setCategory] = useState<CategoryOptions>("All");
+  const [inStock, setinStock] = useState<boolean>(false);
   // define type
   //import it
   // create a use state (give the <type> and default value)
   // create a usememo(()=>{},[])
   //
   // build an index once products change
+
+  const handleClick = () => {
+    setQuery(""), setSort("None"), setCategory("All"), setinStock(false);
+  };
   const fuse = useMemo(() => createProductFuse(products), [products]);
 
   let list = products;
@@ -36,8 +41,16 @@ const ProductSearch = ({ products }: { products: Product[] }) => {
       list = list.filter((p) => p.category === category);
     }
 
+    if (inStock) {
+      list = list.filter((p) => p.inStock);
+    }
+
     return list;
-  }, [products, query, sort, fuse, category]);
+  }, [products, query, sort, fuse, category, inStock]);
+
+  useEffect(() => {
+    filtered;
+  }, []);
 
   return (
     <div>
@@ -61,7 +74,7 @@ const ProductSearch = ({ products }: { products: Product[] }) => {
       </select>
 
       <select
-       className=" rounded-full border p-3 m-6"
+        className=" rounded-full border p-3 m-6"
         value={category}
         onChange={(e) => setCategory(e.currentTarget.value as CategoryOptions)}
       >
@@ -72,6 +85,18 @@ const ProductSearch = ({ products }: { products: Product[] }) => {
           </option>
         ))}
       </select>
+
+      <label htmlFor="in stock">
+        <input
+          type="checkbox"
+          checked={inStock}
+          onChange={(e) => setinStock(e.currentTarget.checked)}
+        />
+        In stock
+      </label>
+      <button type="button" onClick={handleClick}>
+        Reset Button
+      </button>
 
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {filtered.map((p) => (
