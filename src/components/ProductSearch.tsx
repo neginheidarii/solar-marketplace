@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { createProductFuse } from "@/lib/fuse";
 import { Product, Sort, CategoryOptions } from "@/types";
 import Link from "next/link";
@@ -41,10 +41,6 @@ const ProductSearch = ({ products }: { products: Product[] }) => {
 
     return list;
   }, [products, query, sort, fuse, category, inStock]);
-
-  useEffect(() => {
-    filtered;
-  }, []);
 
   return (
     <div className="max-w-6xl mx-auto p-6">
