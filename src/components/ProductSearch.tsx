@@ -11,12 +11,6 @@ const ProductSearch = ({ products }: { products: Product[] }) => {
   const [sort, setSort] = useState<Sort>("None");
   const [category, setCategory] = useState<CategoryOptions>("All");
   const [inStock, setinStock] = useState<boolean>(false);
-  // define type
-  //import it
-  // create a use state (give the <type> and default value)
-  // create a usememo(()=>{},[])
-  //
-  // build an index once products change
 
   const handleClick = () => {
     setQuery(""), setSort("None"), setCategory("All"), setinStock(false);
@@ -53,67 +47,82 @@ const ProductSearch = ({ products }: { products: Product[] }) => {
   }, []);
 
   return (
-    <div>
-      <input
-        className="w-full max-w-xl rounded-full border p-3 mb-6"
-        placeholder="Search products…"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-
-      <select
-        id="sort"
-        className=" rounded-full border p-3 m-6"
-        name="sort"
-        value={sort}
-        onChange={(e) => setSort(e.target.value as Sort)}
-      >
-        <option value="none">None</option>
-        <option value="Price-Asc">Price Asc</option>
-        <option value="Price-Desc">Price Desc</option>
-      </select>
-
-      <select
-        className=" rounded-full border p-3 m-6"
-        value={category}
-        onChange={(e) => setCategory(e.currentTarget.value as CategoryOptions)}
-      >
-        <option value="All">All</option>
-        {categories.map((p) => (
-          <option key={p} value={p}>
-            {p}
-          </option>
-        ))}
-      </select>
-
-      <label htmlFor="in stock">
+    <div className="max-w-6xl mx-auto p-6">
+      {/* Search + Filters */}
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
         <input
-          type="checkbox"
-          checked={inStock}
-          onChange={(e) => setinStock(e.currentTarget.checked)}
+          className="flex-1 min-w-[200px] rounded-full border border-gray-300 bg-gray-50 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+          placeholder="🔍 Search products…"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
         />
-        In stock
-      </label>
-      <button type="button" onClick={handleClick}>
-        Reset Button
-      </button>
 
-      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <select
+          id="sort"
+          className="rounded-full border border-gray-300 bg-white px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          name="sort"
+          value={sort}
+          onChange={(e) => setSort(e.target.value as Sort)}
+        >
+          <option value="none">Sort: None</option>
+          <option value="Price-Asc">Price ↑</option>
+          <option value="Price-Desc">Price ↓</option>
+        </select>
+
+        <select
+          className="rounded-full border border-gray-300 bg-white px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={category}
+          onChange={(e) =>
+            setCategory(e.currentTarget.value as CategoryOptions)
+          }
+        >
+          <option value="All">All Categories</option>
+          {categories.map((p) => (
+            <option key={p} value={p}>
+              {p}
+            </option>
+          ))}
+        </select>
+
+        <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+          <input
+            type="checkbox"
+            checked={inStock}
+            onChange={(e) => setinStock(e.currentTarget.checked)}
+            className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+          />
+          <span>In Stock</span>
+        </label>
+
+        <button
+          type="button"
+          onClick={handleClick}
+          className="rounded-full bg-red-500 px-4 py-2 text-white text-sm font-semibold shadow hover:bg-red-600 transition"
+        >
+          Reset
+        </button>
+      </div>
+
+      {/* Product Grid */}
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {filtered.map((p) => (
-          <li key={p.id} className="border rounded-xl p-4 hover:shadow">
-            <Link href={`/product/${p.id}`}>
+          <li
+            key={p.id}
+            className="border border-gray-200 rounded-2xl p-4 hover:shadow-lg transition"
+          >
+            <Link href={`/product/${p.id}`} className="block">
               <img
                 src={p.imageUrl}
                 alt={p.name}
-                className="w-full h-40 object-cover rounded mb-3"
+                className="w-full h-48 object-cover rounded-lg mb-3"
               />
-              <h2 className="font-semibold">
-                {p.name} - {p.category}{" "}
+              <h2 className="font-semibold text-gray-800 line-clamp-1">
+                {p.name}
               </h2>
-              <p className="text-sm text-gray-600 line-clamp-2">
+              <p className="text-sm text-gray-500 line-clamp-2">
                 {p.description}
               </p>
-              <div className="mt-2 font-bold text-blue-600">
+              <div className="mt-3 font-bold text-blue-600 text-lg">
                 ${p.price.toFixed(2)}
               </div>
             </Link>
