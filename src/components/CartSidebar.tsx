@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import { useCart } from "@/app/store/cart";
+import toast from "react-hot-toast";
 
 export default function CartSidebar() {
   const { items, addItem, removeItem, clearCart, getTotal } = useCart();
@@ -31,7 +32,9 @@ export default function CartSidebar() {
       <div
         className={clsx(
           "fixed inset-0 z-40 bg-black/40 transition-opacity",
-          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          open
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         )}
         onClick={() => setOpen(false)}
       />
@@ -85,7 +88,10 @@ export default function CartSidebar() {
                       {l.name}
                     </h3>
                     <button
-                      onClick={() => removeItem(l.id)}
+                      onClick={() => {
+                        removeItem(l.id),
+                          toast(`${l.name} removed from cart`, { icon: "🗑️" });
+                      }}
                       className="text-xs text-gray-400 hover:text-red-500"
                       title="Remove"
                     >
@@ -94,7 +100,10 @@ export default function CartSidebar() {
                   </div>
 
                   <div className="mt-1 text-sm text-gray-500">
-                    Qty: <span className="font-medium text-gray-700">{l.quantity}</span>
+                    Qty:{" "}
+                    <span className="font-medium text-gray-700">
+                      {l.quantity}
+                    </span>
                     <span className="mx-2">·</span>
                     Unit: ${l.price.toFixed(2)}
                     <span className="mx-2">·</span>
@@ -106,7 +115,12 @@ export default function CartSidebar() {
                     <button
                       onClick={() =>
                         addItem(
-                          { id: l.id, name: l.name, price: l.price, imageUrl: l.imageUrl } as any,
+                          {
+                            id: l.id,
+                            name: l.name,
+                            price: l.price,
+                            imageUrl: l.imageUrl,
+                          } as any,
                           1
                         )
                       }
@@ -126,7 +140,9 @@ export default function CartSidebar() {
         <div className="absolute bottom-0 left-0 right-0 border-t bg-white p-6 space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-gray-600">Total</span>
-            <span className="text-xl font-bold text-blue-600">${total.toFixed(2)}</span>
+            <span className="text-xl font-bold text-blue-600">
+              ${total.toFixed(2)}
+            </span>
           </div>
 
           <div className="flex gap-3">
