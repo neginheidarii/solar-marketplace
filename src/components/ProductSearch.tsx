@@ -5,12 +5,15 @@ import { createProductFuse } from "@/lib/fuse";
 import { Product, Sort, CategoryOptions } from "@/types";
 import Link from "next/link";
 import { categories } from "@/data/products";
+import { useCart } from "@/app/store/cart";
 
 const ProductSearch = ({ products }: { products: Product[] }) => {
   const [query, setQuery] = useState<string>("");
   const [sort, setSort] = useState<Sort>("None");
   const [category, setCategory] = useState<CategoryOptions>("All");
   const [inStock, setinStock] = useState<boolean>(false);
+
+  const { addItem } = useCart();
 
   const handleClick = () => {
     setQuery(""), setSort("None"), setCategory("All"), setinStock(false);
@@ -122,6 +125,14 @@ const ProductSearch = ({ products }: { products: Product[] }) => {
                 ${p.price.toFixed(2)}
               </div>
             </Link>
+
+            <button
+              type="button"
+              onClick={() => addItem(p, 1)}
+              className="mt-3 w-full rounded-full border border-gray-300 px-3 py-2 text-sm hover:bg-gray-50"
+            >
+              Add to Cart
+            </button>
           </li>
         ))}
       </ul>
