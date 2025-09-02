@@ -2,8 +2,15 @@
 
 import type { Product } from "@/types";
 import Link from "next/link";
+import { useCart } from "@/app/store/cart";
 
 export default function ProductDetail({ product }: { product: Product }) {
+  const {addItem} = useCart();
+
+  const handleAdd = () =>{
+    addItem(product, 1)
+    // console.log(product)
+  }
   return (
     <article className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 bg-white p-6 md:p-10 rounded-2xl border border-gray-200 shadow-md">
       {/* Image */}
@@ -33,7 +40,9 @@ export default function ProductDetail({ product }: { product: Product }) {
 
         {/* Actions */}
         <div className="flex items-center gap-4 pt-6">
-          <button className="px-6 py-3 rounded-full bg-blue-600 text-white font-medium shadow hover:bg-blue-700 transition">
+          <button 
+          onClick={handleAdd}
+          className="px-6 py-3 rounded-full bg-blue-600 text-white font-medium shadow hover:bg-blue-700 transition">
             Add to Cart
           </button>
 

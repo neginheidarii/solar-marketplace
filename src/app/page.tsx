@@ -1,6 +1,7 @@
 import ProductSearch from "@/components/ProductSearch";
 import getProducts from "@/lib/api";
 
+
 export default async function Home() {
   const products = await getProducts();
 
