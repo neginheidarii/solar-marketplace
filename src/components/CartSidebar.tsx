@@ -5,6 +5,7 @@ import Image from "next/image";
 import clsx from "clsx";
 import { useCart } from "@/app/store/cart";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function CartSidebar() {
   const { items, addItem, removeItem, clearCart, getTotal } = useCart();
@@ -16,6 +17,8 @@ export default function CartSidebar() {
     [lines]
   );
   const total = getTotal();
+  
+  const router = useRouter();
 
   return (
     <>
@@ -156,6 +159,11 @@ export default function CartSidebar() {
             <button
               className="flex-1 rounded-full bg-blue-600 px-4 py-2 text-white font-medium shadow hover:bg-blue-700 transition disabled:opacity-60"
               disabled={lines.length === 0}
+              onClick={() => {
+                if (lines.length === 0) return;
+                setOpen(false);
+                router.push("/checkout");
+              }}
             >
               Checkout
             </button>
