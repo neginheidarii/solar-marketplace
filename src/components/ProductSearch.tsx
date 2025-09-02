@@ -6,6 +6,7 @@ import { Product, Sort, CategoryOptions } from "@/types";
 import Link from "next/link";
 import { categories } from "@/data/products";
 import { useCart } from "@/app/store/cart";
+import toast from "react-hot-toast";
 
 const ProductSearch = ({ products }: { products: Product[] }) => {
   const [query, setQuery] = useState<string>("");
@@ -128,7 +129,10 @@ const ProductSearch = ({ products }: { products: Product[] }) => {
 
             <button
               type="button"
-              onClick={() => addItem(p, 1)}
+              onClick={() => {
+                addItem(p, 1);
+                toast.success(`Added 1 × ${p.name} to cart`);
+              }}
               className="mt-3 w-full rounded-full border border-gray-300 px-3 py-2 text-sm hover:bg-gray-50"
             >
               Add to Cart
