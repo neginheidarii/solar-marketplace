@@ -45,3 +45,20 @@ export type Category =
   | "Monitoring"
   | "Appliances";
 export type CategoryOptions = "All"|Category;
+
+
+export type CartLine = {
+  id: string;
+  name: string;
+  price: number;
+  imageUrl?: string;
+  quantity: number;
+};
+
+export type CartState = {
+  items: Record<string, CartLine>;                 
+  addItem: (p: Product, qty?: number) => void;
+  removeItem: (id: Product["id"]) => void;          
+  clearCart: () => void;                           
+  getTotal: () => number;                        
+};
