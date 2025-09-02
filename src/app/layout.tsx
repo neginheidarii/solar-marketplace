@@ -2,6 +2,7 @@ import ToasterProvider from "@/components/ToasterProvider";
 import type { Metadata } from "next";
 import "./globals.css";
 import CartSidebar from "@/components/CartSidebar";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: "Solenery Store",
@@ -16,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-dvh bg-gray-50 text-gray-900">
-        <main>{children}</main>
-        <CartSidebar />
-        <ToasterProvider />
+        <Providers>
+          <main>{children}</main>
+          <CartSidebar />
+          <ToasterProvider />
+        </Providers>
       </body>
     </html>
   );
